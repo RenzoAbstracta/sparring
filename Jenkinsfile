@@ -1,16 +1,17 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-        
-        stage('Build & Deploy') {
+
+        stage('Build') {
             steps {
                 script {
+                    sh 'mvn clean package'
                     sh 'docker-compose up --build -d'
                 }
             }
